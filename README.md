@@ -14,9 +14,11 @@ Steganosaurus jest wtyczką do Linuxowej wersji programu Claws Mail. Zanim będz
 5. Rozpakować archiwum zip i skopiować zawartość folderu python-plugins do katalogu .claws-mail
 
 ### 2. Działanie wtyczki:
+======
 Wtyczka Steganosaurus służy do ukrywania wiadomości tekstowych w wychodzących wiadomościach e-mail poprzez wstawienie treści wiadomości ukrytej do nagłówka wiadomości e-mail, który nie jest wyświetlany w domyślnych programach pocztowych. Jako dodatkowe zabezpieczenie, treść wiadomości ukrytej zostaje zaszyfrowana. 
 
 Drugą funkcjonalnością wtyczki jest odszyfrowanie i wyświetlenie ukrytej wiadomości z wiadomości przychodzącej.
 
 ### 3. Użytkowanie:
+======
 Aby ukryć wiadomość w wiadomości wychodzącej należy najpierw napisać treść wiadomości jawnej oraz treść wiadomości ukrytej (Kolejność nie jest istotna). Następnie, zaznaczyć tekst który ma zostać ukryty, otworzyć menu Tools w głównym oknie Claws Mail i wybrać opcję „EncodeToHeader” z podmenu „Python scripts”.
