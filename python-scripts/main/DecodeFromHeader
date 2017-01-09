@@ -30,7 +30,7 @@ else:
     # jesli istnieje naglowek z zakodowana wiadomoscia
     if encoded:
 
-        # dekoduj ukryta wiadomosc
+        # dekoduj wiadomosc z naglowka
         decoded = base64.b64decode(encoded)
 
         # wyswietl zdekodowana wiadomosc
