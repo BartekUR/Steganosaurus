@@ -13,6 +13,7 @@ Steganosaurus jest wtyczką do Linuxowej wersji programu Claws Mail. Zanim będz
   3. Skonfigurować program Claws Mail by prawidłowo połączył się z kontem pocztowym (Pamiętać należy również, że niektóre konta pocztowe wymagają dodatkowej konfiguracji, np. Gmail)
   4.	Użyć następujących poleceń w Terminalu:
       rm -rf ~/.claws-mail/python-scripts
+      git clone https://github.com/BartekUR/Steganosaurus.git
       ln -s ~/Steganosaurus/python-scripts ~/.claws-mail
 
 (Należy zwrócić uwagę na to, że wszystkie skrypty wcześniej dodane zostaną usunięte. Polecane utworzenie backupu)
@@ -43,6 +44,6 @@ Aby zapisać ukrytą wiadomość w załączniku, należy postępować tak samo j
 
 ![przed](https://s29.postimg.org/4mrdot2gn/Kodowanie_kocie.png)
 
-Natomiast, żeby zobaczyć wiadomość ukrytą w obrazku musimy najpierw zapisać obrazek (najprościej do katalogu domowego) a następnie wejść przez terminal do ~/.claws-mail/python-scripts, zmienić uprawnienia do pliku imgdec.py (Tylko za pierwszym razem) przy pomocy komendy chmod +x imgdec.py i uruchomić skrypt komendą ./imgdec.py <ścieżka do obrazka>. Wiadomość ukryta zostanie wypisana na konsolę
+Natomiast, żeby zobaczyć wiadomość ukrytą w obrazku musimy najpierw zapisać obrazek (najprościej do katalogu domowego) a następnie wejść przez terminal do ~/.claws-mail/python-scripts/tools, zmienić uprawnienia do pliku imgdec.py (Tylko za pierwszym razem) przy pomocy komendy chmod +x imgdec.py i uruchomić skrypt komendą ./imgdec.py <ścieżka do obrazka>. Wiadomość ukryta zostanie wypisana na konsolę
 
 ![po](https://s29.postimg.org/5z4hcyaif/dekotowanie.png)
