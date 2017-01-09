@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+
+import imp
+from os.path import expanduser
+imp.load_source('imgenc', expanduser("~/.claws-mail/python-scripts/imgenc.py"))
+from imgenc import imgenc
+
+# pobierz caly tekst wiadomosci
+buffer = clawsmail.compose_window.text.get_buffer()
+
+# wykonuj tylko jesli istnieje zaznaczenie
+if buffer.get_selection_bounds() != ():
+    # pobierz poczatek i koniec zaznaczenia
+    (start, end) = buffer.get_selection_bounds()
+
+    # pobierz zaznaczony fragment
+    message = start.get_text(end)
+
+    # usun zaznaczony fragment
+    buffer.delete(start, end)
+
+    # zakoduj wiadomosc w obrazku
+    imgenc.encode(expanduser("~/.claws-mail/python-scripts/lolcat.jpg"), "/tmp/lolcat.png", message)
+
+    # dolacz obrazek
+    clawsmail.compose_window.attach(["/tmp/lolcat.png"])
+
+# vim: ft=python
