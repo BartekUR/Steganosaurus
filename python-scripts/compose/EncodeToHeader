@@ -2,16 +2,25 @@
 
 import base64
 
-buffer = clawsmail.compose_window.text.get_buffer()     # pobierz caly tekst wiadomosci
+# Wykonuj tylko jesli istnieje zaznaczenie
+if buffer.get_selection_bounds() != ():
+    buffer = clawsmail.compose_window.text.get_buffer()     # pobierz caly tekst wiadomosci
 
-(start, end) = buffer.get_selection_bounds()            # pobierz poczatek i koniec zaznaczenia
+    (start, end) = buffer.get_selection_bounds()            # pobierz poczatek i koniec zaznaczenia
 
-message = start.get_text(end)                           # pobierz zaznaczony fragment wiadomosci
+    message = start.get_text(end)                           # pobierz zaznaczony fragment wiadomosci
 
-buffer.delete(start, end)                               # usun zaznaczony fragment wiadomosci
+    buffer.delete(start, end)                               # usun zaznaczony fragment wiadomosci
 
-encoded = base64.b64encode(message)                     # zakoduj pobrany fragment
+    headers = clawsmail.compose_window.get_header_list()    # pobierz naglowki
 
-clawsmail.compose_window.add_header("SS:", encoded)     # zapisz zakodowany fragment w naglowku 'SS:'
+    secrets = [h[1] for h in headers if h[0] == "SS:"]      # pobierz z naglowkow dodane wczesniej fragmenty
+
+    for s in secrets:                                       # dodaj do siebie fragmenty
+        message += "\n--\n" + base64.b64decode(s)
+
+    encoded = base64.b64encode(message)                     # zakoduj wiadomosc
+
+    clawsmail.compose_window.add_header("SS:", encoded)     # zapisz zakodowana wiadomosc w naglowku 'SS:'
 
 # vim: ft=python
