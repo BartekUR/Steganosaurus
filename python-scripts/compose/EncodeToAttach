@@ -2,8 +2,8 @@
 
 import imp
 from os.path import expanduser
-imp.load_source('imgenc', expanduser("~/.claws-mail/python-scripts/imgenc.py"))
-from imgenc import imgenc
+imp.load_source("imgenc", expanduser("~/.claws-mail/python-scripts/imgenc.py"))
+from imgenc import encode
 
 # pobierz caly tekst wiadomosci
 buffer = clawsmail.compose_window.text.get_buffer()
@@ -20,7 +20,7 @@ if buffer.get_selection_bounds() != ():
     buffer.delete(start, end)
 
     # zakoduj wiadomosc w obrazku
-    imgenc.encode(expanduser("~/.claws-mail/python-scripts/lolcat.jpg"), "/tmp/lolcat.png", message)
+    encode(expanduser("~/.claws-mail/python-scripts/lolcat.jpg"), "/tmp/lolcat.png", message)
 
     # dolacz obrazek
     clawsmail.compose_window.attach(["/tmp/lolcat.png"])

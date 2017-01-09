@@ -8,23 +8,15 @@ DIST = 8
 
 
 def normalize_pixel(r, g, b):
-    if is_modify_pixel(r, g, b):
+    if r % DIST == g % DIST == b % DIST == 1:
         seed = random.randint(1, 3)
         if seed == 1:
-            r = _normalize(r)
+            r = r - 1 if r >= 128 else r + 1
         if seed == 2:
-            g = _normalize(g)
+            g = g - 1 if r >= 128 else g + 1
         if seed == 3:
-            b = _normalize(b)
+            b = b - 1 if r >= 128 else b + 1
     return r, g, b
-
-
-def modify_pixel(r, g, b):
-    return map(_modify, [r, g, b])
-
-
-def is_modify_pixel(r, g, b):
-    return r % DIST == g % DIST == b % DIST == 1
 
 
 def _modify(i):
@@ -39,14 +31,6 @@ def _modify(i):
                 return i
             i += 1
     raise ValueError
-
-
-def _normalize(i):
-    if i >= 128:
-        i -= 1
-    else:
-        i += 1
-    return i
 
 
 def normalize(path, output):
@@ -68,7 +52,7 @@ def hide_text(path, text):
 
     write_param = []
     _base = 0
-    for _ in to_hex(text):
+    for _ in text.encode("hex"):
         write_param.append(int(_, 16) + _base)
         _base += 16
 
@@ -78,19 +62,13 @@ def hide_text(path, text):
         for x in range(img.size[0]):
             if counter in write_param:
                 r, g, b = img.getpixel((x, y))
-                r, g, b = modify_pixel(r, g, b)
+                r, g, b = map(_modify, [r, g, b])
                 img.putpixel((x, y), (r, g, b))
             counter += 1
 
     img.save(path, "PNG", optimize=True)
 
 
-def to_hex(s):
-    return s.encode("hex")
-
-
-class imgenc(object):
-    @classmethod
-    def encode(cls, input_image_path, output_image_path, encode_text):
-        normalize(input_image_path, output_image_path)
-        hide_text(output_image_path, encode_text)
+def encode(input_image_path, output_image_path, encode_text):
+    normalize(input_image_path, output_image_path)
+    hide_text(output_image_path, encode_text)
