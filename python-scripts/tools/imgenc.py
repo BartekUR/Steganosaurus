@@ -4,11 +4,9 @@ from __future__ import absolute_import, unicode_literals
 from PIL import Image
 import random
 
-DIST = 8
-
 
 def normalize_pixel(r, g, b):
-    if r % DIST == g % DIST == b % DIST == 1:
+    if r % 8 == g % 8 == b % 8 == 1:
         seed = random.randint(1, 3)
         if seed == 1:
             r = r - 1 if r >= 128 else r + 1
@@ -21,13 +19,13 @@ def normalize_pixel(r, g, b):
 
 def _modify(i):
     if i >= 128:
-        for x in range(DIST + 1):
-            if i % DIST == 1:
+        for x in range(8 + 1):
+            if i % 8 == 1:
                 return i
             i -= 1
     else:
-        for x in range(DIST + 1):
-            if i % DIST == 1:
+        for x in range(8 + 1):
+            if i % 8 == 1:
                 return i
             i += 1
     raise ValueError

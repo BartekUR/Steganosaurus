@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+
+import io
+import sys
+from os.path import expanduser
+sys.path.append(expanduser("~/.claws-mail/python-scripts/tools"))
+import unistego
+
+# pobierz caly tekst wiadomosci
+buffer = clawsmail.compose_window.text.get_buffer()
+
+# wykonuj tylko jesli istnieje zaznaczenie
+if buffer.get_selection_bounds() != ():
+    # pobierz poczatek i koniec zaznaczenia
+    (start, end) = buffer.get_selection_bounds()
+
+    # pobierz zaznaczony fragment
+    message = start.get_text(end)
+
+    # usun zaznaczony fragment
+    buffer.delete(start, end)
+
+    inf = io.open("/tmp/in.txt", 'wt')
+    inf.write(unicode(buffer.get_text(buffer.get_start_iter(), buffer.get_end_iter())))
+    inf.close()
+
+    in_file = io.open("/tmp/in.txt", 'rt')
+    out_file = io.open("/tmp/out.txt", 'wt')
+    hider = unistego.get_hider(out_file, message, 'joiners')
+    with in_file, hider:
+        while True:
+            txt = in_file.read(16*1024)
+            if not txt:
+                break
+            hider.write(txt)
+    in_file.close()
+    out_file.close()
+
+    with io.open("/tmp/out.txt", 'rt') as outf:
+        text = outf.read()
+    outf.close()
+
+    buffer.set_text(text)
+
+# vim: ft=python
