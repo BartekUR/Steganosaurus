@@ -1,0 +1,51 @@
+# -*- coding: utf-8 -*-
+
+import base64
+import gtk
+import pygtk
+pygtk.require('2.0')
+
+# pobierz obiekt zaznaczonej wiadomosci
+msgobj = clawsmail.get_summaryview_selected_message_list()
+
+# kontrola bledow
+if not msgobj:
+    message = gtk.MessageDialog(type=gtk.MESSAGE_ERROR, buttons=gtk.BUTTONS_OK)
+    message.set_markup("Nie wybrales zadnej wiadomosci!")
+    message.run()
+    message.destroy()
+
+elif len(msgobj) > 1:
+    message = gtk.MessageDialog(type=gtk.MESSAGE_ERROR, buttons=gtk.BUTTONS_OK)
+    message.set_markup("Mozesz wybrac tylko jedna wiadomosc jednoczesnie!")
+    message.run()
+    message.destroy()
+
+else:
+    msg = msgobj[0]
+
+    # pobierz zawartosc naglowka
+    encoded = msg.get_header("SS:")
+
+    # jesli istnieje naglowek z zakodowana wiadomoscia
+    if encoded:
+
+        # dekoduj ukryta wiadomosc
+        decoded = base64.b64decode(encoded)
+
+        # wyswietl zdekodowana wiadomosc
+        message = gtk.MessageDialog(type=gtk.MESSAGE_INFO, buttons=gtk.BUTTONS_OK)
+        message.set_markup(decoded)
+        message.run()
+        message.destroy()
+
+    # jesli brak naglowka z zakodowana wiadomoscia
+    else:
+
+        # wyswietl komunikat o bledzie
+        message = gtk.MessageDialog(type=gtk.MESSAGE_ERROR, buttons=gtk.BUTTONS_OK)
+        message.set_markup("Brak ukrytej wiadomosci!\nWybierz prawidlowa wiadomosc.")
+        message.run()
+        message.destroy()
+
+# vim: ft=python
