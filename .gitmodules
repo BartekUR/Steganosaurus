@@ -1,0 +1,3 @@
+[submodule "python-scripts/tools/unistego.git"]
+	path = python-scripts/tools/unistego.git
+	url = https://github.com/izderadicka/unistego.git
