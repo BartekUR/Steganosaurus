@@ -15,9 +15,10 @@ Steganosaurus jest wtyczką do Linuxowej wersji programu Claws Mail. Zanim będz
 
   3. Skonfigurować program Claws Mail by prawidłowo połączył się z kontem pocztowym (Pamiętać należy również, że niektóre konta pocztowe wymagają dodatkowej konfiguracji, np. Gmail)
   4.	Użyć następujących poleceń w Terminalu:
-      rm -rf ~/.claws-mail/python-scripts
       git clone https://github.com/BartekUR/Steganosaurus.git
-      ln -s ~/Steganosaurus/python-scripts ~/.claws-mail
+      cd Steganosaurus; git submodule init; git submodule update
+      rm -rf ~/.claws-mail/python-scripts
+      ln -s python-scripts ~/.claws-mail
 
 (Należy zwrócić uwagę na to, że wszystkie skrypty wcześniej dodane zostaną usunięte. Polecane utworzenie backupu)
   
