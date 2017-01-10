@@ -5,11 +5,14 @@ Steganosaurus jest wtyczką do Linuxowej wersji programu Claws Mail. Zanim będz
   1. Należy posiadać zainstalowany system Linux (Ubuntu, Arch, Debian, Solaris, itp.), gdyż wersja Claws Mail na systemy Microsoft Windows nie gwarantuje potrzebnej funkcjonalności.
   2. Zainstalować następujące paczki używając polecenia „sudo apt-get install”:
     1. python
-    2. python-gtk2
-    3. python-gobject-2
-    4. python-imaging
-    5. claws-mail
-    6. claws-mail-python-plugin
+	  2. python-gtk2
+	  3. python-gobject-2
+	  4. python-imaging
+	  5. python-bitarray
+	  6. python-six
+	  7. claws-mail
+	  8. claws-mail-python-plugin
+
   3. Skonfigurować program Claws Mail by prawidłowo połączył się z kontem pocztowym (Pamiętać należy również, że niektóre konta pocztowe wymagają dodatkowej konfiguracji, np. Gmail)
   4.	Użyć następujących poleceń w Terminalu:
       rm -rf ~/.claws-mail/python-scripts
@@ -47,3 +50,11 @@ Aby zapisać ukrytą wiadomość w załączniku, należy postępować tak samo j
 Natomiast, żeby zobaczyć wiadomość ukrytą w obrazku musimy najpierw zapisać obrazek (najprościej do katalogu domowego) a następnie wejść przez terminal do ~/.claws-mail/python-scripts/tools, zmienić uprawnienia do pliku imgdec.py (Tylko za pierwszym razem) przy pomocy komendy chmod +x imgdec.py i uruchomić skrypt komendą ./imgdec.py <ścieżka do obrazka>. Wiadomość ukryta zostanie wypisana na konsolę
 
 ![po](https://s29.postimg.org/5z4hcyaif/dekotowanie.png)
+
+Aby ukryć treść w tekście jawnym, należy utworzyć nową wiadomość w Claws Mail, następnie napisać długą wiadomość o dowolnej treści (gdyż ten sposób ukrycia wymaga dużo tekstu do ukrycia nawet krótkich wiadomości). Potem, należy napisać treść do ukrycia i wybrać z menu Tools „EncodeToMess” z podmenu Python scripts. 
+
+![przed.png](https://s28.postimg.org/ni465vqfh/przed.png)
+
+Aby odczytać ukrytą treść zapisaną w ten sposób, należy zaznaczyć treść wiadomości z programu Claws Mail i przekopiować ją do pliku (Zalecane użycie nano lub vim.) Następnie z katalogu ~/.claws-mail/python-scripts/tools użyć komendy ./txtdec.sh <ścieżka do zapisanego pliku>. Treść ukryta zostanie wypisana na konsolę.
+
+![textdec.png](https://s28.postimg.org/v9kw4fukt/textdec.png)
